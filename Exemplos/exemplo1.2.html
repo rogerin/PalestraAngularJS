@@ -1,0 +1,33 @@
+<!doctype html>
+<html ng-app="nomeAplicacao">
+  <head>
+    <script src="bower_components/angular/angular.min.js"></script>
+  </head>
+  <body>
+    <div ng-controller="NameCtrl">
+      <label>Name:</label>
+      <input type="text" ng-model="yourName" placeholder="Enter a name here">
+      <hr>
+      <h1>Hello {{yourName}}!</h1>
+    </div>
+
+
+    <script type="text/javascript">
+    	angular.module('nomeAplicacao', [])
+    		.controller('NameCtrl', ['$scope', function ($scope) {
+    			$scope.yourName = "Rogeiro Alencar";
+    		}]);
+
+    </script>
+
+
+
+
+
+
+
+  </body>
+</html>
+
+
+

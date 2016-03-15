@@ -1,0 +1,61 @@
+<!doctype html>
+<html ng-app="nomeAplicacao">
+  <head>
+    <script src="bower_components/angular/angular.min.js"></script>
+
+  </head>
+  <body>
+    <div ng-controller="NameCtrl">
+      <label>Nome:</label>
+      <input type="text" ng-model="git.user" placeholder="Nome"> <br/>
+
+      <br>
+      <button ng-click="buscarGit(git)">Buscar Github</button> <br/>
+  
+      <br/>
+      <hr />
+     <!--  <p>
+        <span>Usuário: {{github.login || '...'}}</span> <br/>
+        <span><img ng-src="{{github.avatar_url}}" width="200"></span> <br/>
+      </p>
+
+      <p>
+        {{github | json}}
+      </p>
+ -->
+
+    <ul>
+      <li ng-repeat="user in users"> 
+        {{user.nome}} - {{user.email}}
+      </li>
+    </ul>
+    </div>
+
+
+    <script type="text/javascript">
+    	angular.module('nomeAplicacao', [])
+    		.controller('NameCtrl', ['$scope', '$http', function ($scope, $http) {
+
+          $scope.github = {};
+          $scope.users = [];
+
+    			$scope.buscarGit = function(git) {
+    				$http.get('http://172.20.10.2:8080/listar').then(function(user){
+              console.log(user);
+
+              $scope.users = user.data;
+              
+              //$scope.github = user.data;
+
+            }, function(err){
+              console.log(err);
+            })
+    			};
+
+    		}]);
+    </script>
+  </body>
+</html>
+
+
+

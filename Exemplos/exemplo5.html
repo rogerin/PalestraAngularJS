@@ -1,0 +1,71 @@
+<!doctype html>
+<html ng-app="nomeAplicacao">
+  <head>
+    <script src="bower_components/angular/angular.min.js"></script>
+
+    <style type="text/css">
+  		.red { color: red;}
+  		.blue { color: blue;}
+
+    </style>
+  </head>
+  <body>
+    <div ng-controller="NameCtrl">
+      <label>Nome:</label>
+      <input type="text" ng-model="item.nome" placeholder="Nome"> <br/>
+      
+      <label>Idade:</label>
+      <input type="text" ng-model="item.idade" placeholder="Idade"> <br/>
+
+      <br>
+      <button ng-click="addItem(item)">Adicionar item</button> <br/>
+   
+
+      <br/>
+      <br/>
+      
+      <hr />
+		<!--
+  		$index	
+  		$first	
+  		$middle	
+  		$last	
+  		$even	
+  		$odd
+		-->
+      <ul>
+      	<li ng-repeat="item in itens" ng-class="{blue: $odd, red: !($index%2)}" ng-hide="$last">
+          {{item.nome}} de index {{$index}} primeiro ({{$first}})  ultimo({{$last}}) do meio({{$middle}})
+        </li>
+      </ul>
+    </div>
+
+
+    <script type="text/javascript">
+    	angular.module('nomeAplicacao', [])
+    		.controller('NameCtrl', ['$scope', function ($scope) {
+
+    			$scope.itens = [
+    								{
+    									nome: "primeiro", idade: 29
+    								},
+    								{
+    									nome: "Yolanda Sampaio", idade: 27
+    								},
+    								{
+    									nome: "ultimo", idade: null
+    								}
+    							];
+
+    			$scope.addItem = function(item) {
+    				$scope.itens.push(item);
+    				$scope.item = {};
+    			};
+
+    		}]);
+    </script>
+  </body>
+</html>
+
+
+

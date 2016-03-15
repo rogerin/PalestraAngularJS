@@ -1,0 +1,56 @@
+<!doctype html>
+<html ng-app="nomeAplicacao">
+  <head>
+    <script src="bower_components/angular/angular.min.js"></script>
+
+    <style type="text/css">
+  		.red { color: red;}
+  		.blue { color: blue;}
+
+    </style>
+  </head>
+  <body>
+    <div ng-controller="NameCtrl">
+      <label>Name:</label>
+      <input type="text" ng-model="yourName" placeholder="Enter a name here">
+      <input type="text" ng-model="class" placeholder="Enter a name here">
+      <br>
+      
+
+      <hr>
+      <h1 ng-class="class">Hello {{yourName}}!</h1>
+    </div>
+
+    <div ng-controller="outroCtrl">
+       <button ng-click="setColor('blue')">Cor Azul</button> <br/>
+      <button ng-click="setColor('red')">Cor Vermelho</button>
+      <hr/>
+
+      {{class}}
+
+    </div>
+
+   
+
+
+    <script type="text/javascript">
+    	angular.module('nomeAplicacao', [])
+    		.controller('NameCtrl', ['$scope', function ($scope) {
+    			$scope.yourName = "Rogeiro Alencar";
+
+    			$scope.setColor = function(color) {
+    				$scope.class = color;
+    			};
+    		}])
+        .controller('outroCtrl', ['$scope', function ($scope) {
+          $scope.setColor = function(color) {
+            console.log('setColor:' + color);
+            $scope.class = color;
+          };
+        }]);
+    </script>
+  </body>
+</html>
+
+
+

@@ -1,0 +1,68 @@
+<!doctype html>
+<html ng-app="nomeAplicacao">
+  <head>
+    <script src="bower_components/angular/angular.min.js"></script>
+
+  </head>
+  <body>
+    <div ng-controller="NameCtrl">
+      <label>Nome:</label>
+      <input type="text" ng-model="git.user" placeholder="Nome"> <br/>
+      
+  
+      <br>
+      <button ng-click="buscarGit(git)">Buscar Github</button> <br/>
+   
+
+      <br/>
+      <hr />
+      <p>
+        <span>Usuário: {{github.login || '...'}}</span> <br/>
+        <span><img ng-src="{{github.avatar_url}}" width="200"></span> <br/>
+      </p>
+
+      <p>
+        {{github | json}}
+      </p>
+
+    </div>
+
+
+    <script type="text/javascript">
+    	angular.module('nomeAplicacao', [])
+
+        .controller('NameCtrl', ['$scope', 'gitubFactory', function ($scope, gitubFactory) {
+
+          $scope.github = {};
+
+    			$scope.buscarGit = function(git) {
+    				gitubFactory.getUser(git.user).then(function(user){
+              $scope.github = user.data;
+
+            }, function(err){
+              alert(err);
+              console.log(err);
+            })
+    			};
+
+    		}])
+
+        .factory('gitubFactory', ['$http', 'CONFIG', function ($http, CONFIG) {
+          
+          var _getUser = function(user){
+            return $http.get(CONFIG.url + '/users/' + user);
+          };
+        
+          return {
+            getUser: _getUser
+          };
+        }])
+        .constant('CONFIG', {
+          url:'https://api.github.com/v2'
+        });
+    </script>
+  </body>
+</html>
+
+
+
